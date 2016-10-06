@@ -1,0 +1,38 @@
+<ion-view view-title="Sk8 Log">
+
+  <ion-content class="padding">
+      <!-- record tricks div --> 
+      <div class="card">
+          <div class="list">
+              <label class="Item item-input item-floating-label">
+                  <span class="input-label">Trick Landed</span>
+                  <input type="text" placeholder="Trick landed" />
+              </label>
+              <label class="Item item-input item-floating-label">
+                  <span class="input-label">Location</span>
+                  <input type="text" placeholder="Location" />
+              </label>
+              <div class="padding">
+                  <button class="button button-block button-assertive">Add Trick</button>
+              </div>
+          </div>
+      </div>
+      <!-- list recorded tricks here-->
+      <table>
+          <thead>
+          <th>Deck Category Name</th>
+          <th>Deck Category Code</th>
+          </thead>
+          <tr ng-repeat="category in categories">
+              <td>{{category.Name}}</td>
+              <td>{{category.Code}}</td>
+          </tr>
+      </table>
+      <div class="card padding"ng-repeat="">
+          <div class="Item item-text-wrap" >
+              Trick: {{ category.Trick }} <br />
+              Location: {{ category.Location }}<br />
+          </div>
+      </div>
+  </ion-content>
+</ion-view>

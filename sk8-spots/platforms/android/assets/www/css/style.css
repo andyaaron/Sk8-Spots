@@ -1,0 +1,29 @@
+﻿/* MAP STYLING */
+ng-map {
+  width: 100%;
+  height: 100%;
+}
+
+.scroll {
+  height: 100%;
+}
+
+/* INFO WINDOW */
+.ng-map-info-window {
+    background-color: #222222;
+    color: #fff;
+}
+.ng-map-info-window div:first-child > div:nth-child(1) {
+    border-top-color: #222222 !important;
+}
+.ng-map-info-window div:first-child > div:nth-child(3) div {
+    background-color: transparent !important;
+}
+.ng-map-info-window div:first-child > div:nth-child(4) {
+    background-color: transparent !important;
+}
+
+.firstHeading {
+    color: #fff;
+    text-transform: uppercase;
+}
