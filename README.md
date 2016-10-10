@@ -1,7 +1,9 @@
 "# sk8spots" 
 
 "# Author: Aaron Andy"
+
 "# Version: Alpha"
+
 "# Last updated: 10/10/16"
 
 "# Description: The project was created with AngularJS, Ionic and Cordova. The app initially loads up a map, which is centered on NC
