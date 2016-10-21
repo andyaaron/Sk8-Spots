@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "771919692652",
+    "firebase_url": "https://sk8-spots.firebaseio.com",
+    "project_id": "sk8-spots",
+    "storage_bucket": "sk8-spots.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771919692652:android:a939a93d8f075c22",
+        "android_client_info": {
+          "package_name": "io.cordova.myappa6fb9d"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771919692652-de77cnn0b4duaoh3b7ea6udapmu7vngh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvCw-TNWYijwelxvkjOOSmqW6vTZ_G5jg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

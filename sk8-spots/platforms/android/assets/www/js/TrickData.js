@@ -1,4 +1,4 @@
-﻿[{
+﻿{
     "Trick": "Ollie",
     "Location": "Depot Ledge"
 }, {
@@ -13,4 +13,4 @@
 }, {
     "Trick": "Tre Flip",
     "Location": "Franklin, NC"
-}]
+}

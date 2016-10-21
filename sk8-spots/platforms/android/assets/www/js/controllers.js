@@ -1,19 +1,22 @@
-angular.module('starter.controllers', ['ionic', 'ngMap'])
+angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
 
-.controller('DashCtrl', function ($scope, $http, categoryData) {
+.controller('DashCtrl', function ($scope, $firebaseArray) {
+
     var vm = this;
 
-    vm.categories = [];
+    // reference variable for database
+    var ref = firebase.database().ref().child("TrickRecords");
 
-    categoryData.categories
-        .then(function (response) {
-            console.log("Inside success function");
-            console.dir(response);
+    //create sync'd array
+    vm.records = $firebaseArray(ref);
 
-            vm.categories = response.data;
+    vm.addRecord = function () {
+        vm.records.$add({
+            trick: vm.newTrickText,
+            place: vm.newPlaceText,
+            notes: vm.newNotesText
         });
-
-    console.log("after then function");
+    };
 })
 
 .controller('MapCtrl', function (NgMap) { 
