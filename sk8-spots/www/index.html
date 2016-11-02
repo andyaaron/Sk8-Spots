@@ -34,18 +34,40 @@
     <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/3.5.1/firebase.js"></script>
-      <script>
-          // Initialize Firebase
-          var config = {
-            apiKey: "AIzaSyDKClp09Xpvm767D4A8JT0JRiQV0G_ZoGg",
-            authDomain: "sk8-spots-2a9eb.firebaseapp.com",
-            databaseURL: "https://sk8-spots-2a9eb.firebaseio.com",
-            storageBucket: "sk8-spots-2a9eb.appspot.com",
-            messagingSenderId: "1089881929124"
-          };
-          firebase.initializeApp(config);
-      </script>
+
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.5.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+        apiKey: "AIzaSyDKClp09Xpvm767D4A8JT0JRiQV0G_ZoGg",
+        authDomain: "sk8-spots-2a9eb.firebaseapp.com",
+        databaseURL: "https://sk8-spots-2a9eb.firebaseio.com",
+        storageBucket: "sk8-spots-2a9eb.appspot.com",
+        messagingSenderId: "1089881929124"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/ui/live/0.5/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/live/0.5/firebase-ui-auth.css" />
+    <script type="text/javascript">
+        // FirebaseUI config.
+        var uiConfig = {
+        'signInSuccessUrl': '<url-to-redirect-to-on-success>',
+        'signInOptions': [
+            // Leave the lines as is for the providers you want to offer your users.
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ],
+        // Terms of service url.
+        'tosUrl': '<your-tos-url>',
+        };
+
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // The start method will wait until the DOM is loaded.
+        ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
   </head>
 
   <body ng-app="starter">

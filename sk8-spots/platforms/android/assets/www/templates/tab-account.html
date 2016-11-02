@@ -1,9 +1,26 @@
 <ion-view view-title="Account">
   <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
+      <div ng-show="firebaseUser">
+          <p>Hello, {{ firebaseUser.displayName }}</p>
+          <button ng-click="auth.$signOut">Sign Out</button>
+      </div>
+      <div ng-hide="firebaseUser">
+          <p>Welcome, please sign in.</p>
+          <button ng-click="auth.$signInWithPopup('google')">Sign in with Facebook</button>
+      </div>
+
+      Email: <input type="text" ng-model="email" />
+      Password: <input type="text" ng-model="password" />
+
+      <br /><br />
+
+      <button ng-click="vm.createUser()">Create User</button>
+
+      <br /><br />
+
+      <button ng-click="vm.deleteUser()">Delete User</button>
+
+      <p ng-if="firebaseUser">Signed in user: <strong>{{ firebaseUser.uid }}</strong></p>
+      <p ng-if="error">Error: <strong>{{ error }}</strong></p>
   </ion-content>
 </ion-view>

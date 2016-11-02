@@ -1,15 +1,16 @@
 angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
 
-.controller('DashCtrl', function ($scope, $firebaseArray) {
+.controller('DashCtrl', function ($scope, $firebaseArray, $firebaseAuth) {
 
     var vm = this;
 
     // reference variable for database
     var ref = firebase.database().ref().child("TrickRecords");
 
-    //create sync'd array
+    //create synchronized array
     vm.records = $firebaseArray(ref);
 
+    //add user entry to db
     vm.addRecord = function () {
         vm.records.$add({
             trick: vm.newTrickText,
@@ -17,6 +18,57 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
             notes: vm.newNotesText
         });
     };
+})
+
+.controller('AccountCtrl', function ($scope, Auth) {
+    var vm = this;
+
+    vm.auth = Auth;
+
+    // Any time auth state changes, add the user data to scope
+    vm.auth.$onAuthStateChanged(function (firebaseUser) {
+        vm.firebaseUser = firebaseUser;
+    });
+
+    // Create user function
+    vm.createUser = function () {
+        vm.message = null;
+        vm.error = null;
+
+        // Create a new user
+        Auth.$createUserWithEmailAndPassword(vm.email, vm.password)
+            .then(function (firebaseUser) {
+                vm.message = "User created with uid: " + firebaseUser.uid;
+            }).catch(function (error) {
+                vm.error = error;
+            });
+    }
+
+    // Delete user function
+    vm.deleteUser = function (){ 
+        vm.message = null;
+        vm.error = null;
+
+        // Delete the currently signed in user
+        Auth.$deleteUser().then(function () {
+            vm.message = "User deleted";
+        }).catch(function(error) {
+            vm.error = error;
+        });
+    }
+
+    // Sign in user
+    vm.signIn = function () {
+        vm.firebaseUser = null;
+        vm.error = null;
+
+        auth.$signInAnonymously().then(function (firebaseUser) {
+            $scope.firebaseUser = firebaseUser;
+        }).catch(function (error) {
+            $scope.error = error;
+        });
+
+    }
 })
 
 .controller('MapCtrl', function (NgMap) { 

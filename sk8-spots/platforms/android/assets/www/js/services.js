@@ -1,5 +1,6 @@
 angular.module('starter.services', [])
 
+// this is here. dont remember why. may be obsolete
 .factory('categoryData', function ($http) {
     console.log("Inside categoryData service!");
 
@@ -8,12 +9,18 @@ angular.module('starter.services', [])
     }
 })
 
+// Do i even need this? i might.
 .factory('sk8Categories', function (rootRef) {
     return {
         getCategoriesRef: function () {
             return rootRef.child('categories');
         }
     }
+})
+
+// factory for user authentication through firebase
+.factory('Auth', function ($firebaseAuth) {
+    return $firebaseAuth();
 })
 
 /* not used, may be useful for reference though */
