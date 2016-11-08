@@ -20,15 +20,14 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
     };
 })
 
-.controller('AccountCtrl', function ($scope, Auth) {
+.controller('AccountCtrl', function ($scope, $firebaseAuth, Auth) {
     var vm = this;
 
-    vm.auth = Auth;
-
-    // Any time auth state changes, add the user data to scope
+    /* Any time auth state changes, add the user data to scope
     vm.auth.$onAuthStateChanged(function (firebaseUser) {
         vm.firebaseUser = firebaseUser;
     });
+    */
 
     // Create user function
     vm.createUser = function () {
@@ -44,7 +43,7 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
             });
     }
 
-    // Delete user function
+    /* Delete user function
     vm.deleteUser = function (){ 
         vm.message = null;
         vm.error = null;
@@ -56,18 +55,52 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
             vm.error = error;
         });
     }
+    */
 
     // Sign in user
+    
     vm.signIn = function () {
         vm.firebaseUser = null;
         vm.error = null;
 
-        auth.$signInAnonymously().then(function (firebaseUser) {
-            $scope.firebaseUser = firebaseUser;
-        }).catch(function (error) {
-            $scope.error = error;
+        /*
+        auth.$login('password', {
+            email: vm.email,
+            password: vm.password
+        }).then(function (user) {
+            vm.alert.message = '';
+        }, function (error) {
+            if (error = 'INVALID_EMAIL') {
+                console.log('email invalid or not signed up. trying to sign you up!');
+                vm.signUp();
+            } else if (error = 'INVALID_PASSWORD') {
+                console.log('wrong password!');
+            } else {
+                console.log(error);
+            }
         });
+        */
 
+        // Anon sign-in 
+        
+        Auth.$signInAnonymously().then(function(firebaseUser) {
+            vm.firebaseUser = firebaseUser;
+            console.log("Signed in as:", firebaseUser.uid);
+        }).catch(function (error) {
+            vm.error = error;
+            console.error("Authentication failed:", error);
+        });
+        
+    }
+
+    vm.signUp = function () {
+        Auth.$createUser(vm.email, vm.password, function (error, user) {
+            if (!error) {
+                vm.alert.message = '';
+            } else {
+                vm.alert.message = 'The username and password combination you entered is invalid.';
+            }
+        });
     }
 })
 
