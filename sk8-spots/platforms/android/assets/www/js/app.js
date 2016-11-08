@@ -52,17 +52,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
     })
 
-    .state('tab.chats', {
-        url: '/chats',
-        cache: false,
-        views: {
-        'tab-chats': {
-            templateUrl: 'templates/tab-chats.html',
-            controller: 'ChatsCtrl'
-        }
-        }
-    })
-
     .state('tab.map', {
         url: '/map',
         cache: false,
@@ -75,24 +64,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
     })
 
-    .state('tab.chat-detail', {
-        url: '/chats/:chatId',
-        cache: false,
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
-
   .state('tab.account', {
       url: '/account',
       cache: false,
     views: {
       'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+          templateUrl: 'templates/tab-account.html',
+          controllerAs: 'vm',
+          controller: 'AccountCtrl'
       }
     }
   });

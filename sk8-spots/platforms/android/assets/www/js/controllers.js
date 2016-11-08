@@ -1,19 +1,107 @@
-angular.module('starter.controllers', ['ionic', 'ngMap'])
+angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
 
-.controller('DashCtrl', function ($scope, $http, categoryData) {
+.controller('DashCtrl', function ($scope, $firebaseArray, $firebaseAuth) {
+
     var vm = this;
 
-    vm.categories = [];
+    // reference variable for database
+    var ref = firebase.database().ref().child("TrickRecords");
 
-    categoryData.categories
-        .then(function (response) {
-            console.log("Inside success function");
-            console.dir(response);
+    //create synchronized array
+    vm.records = $firebaseArray(ref);
 
-            vm.categories = response.data;
+    //add user entry to db
+    vm.addRecord = function () {
+        vm.records.$add({
+            trick: vm.newTrickText,
+            place: vm.newPlaceText,
+            notes: vm.newNotesText
         });
+    };
+})
 
-    console.log("after then function");
+.controller('AccountCtrl', function ($scope, $firebaseAuth, Auth) {
+    var vm = this;
+
+    /* Any time auth state changes, add the user data to scope
+    vm.auth.$onAuthStateChanged(function (firebaseUser) {
+        vm.firebaseUser = firebaseUser;
+    });
+    */
+
+    // Create user function
+    vm.createUser = function () {
+        vm.message = null;
+        vm.error = null;
+
+        // Create a new user
+        Auth.$createUserWithEmailAndPassword(vm.email, vm.password)
+            .then(function (firebaseUser) {
+                vm.message = "User created with uid: " + firebaseUser.uid;
+            }).catch(function (error) {
+                vm.error = error;
+            });
+    }
+
+    /* Delete user function
+    vm.deleteUser = function (){ 
+        vm.message = null;
+        vm.error = null;
+
+        // Delete the currently signed in user
+        Auth.$deleteUser().then(function () {
+            vm.message = "User deleted";
+        }).catch(function(error) {
+            vm.error = error;
+        });
+    }
+    */
+
+    // Sign in user
+    
+    vm.signIn = function () {
+        vm.firebaseUser = null;
+        vm.error = null;
+
+        /*
+        auth.$login('password', {
+            email: vm.email,
+            password: vm.password
+        }).then(function (user) {
+            vm.alert.message = '';
+        }, function (error) {
+            if (error = 'INVALID_EMAIL') {
+                console.log('email invalid or not signed up. trying to sign you up!');
+                vm.signUp();
+            } else if (error = 'INVALID_PASSWORD') {
+                console.log('wrong password!');
+            } else {
+                console.log(error);
+            }
+        });
+        */
+
+        // Anon sign-in 
+        
+        Auth.$signInAnonymously().then(function(firebaseUser) {
+            vm.firebaseUser = firebaseUser;
+            console.log("Signed in as:", firebaseUser.uid);
+        }).catch(function (error) {
+            vm.error = error;
+            console.error("Authentication failed:", error);
+        });
+        
+    }
+
+    vm.signUp = function () {
+        Auth.$createUser(vm.email, vm.password, function (error, user) {
+            if (!error) {
+                vm.alert.message = '';
+            } else {
+                vm.alert.message = 'The username and password combination you entered is invalid.';
+            }
+        });
+    }
 })
 
 .controller('MapCtrl', function (NgMap) { 

@@ -1,38 +1,31 @@
 <ion-view view-title="Sk8 Log">
-
+    <div id="firebaseui-auth-container"></div>
   <ion-content class="padding">
-      <!-- record tricks div --> 
-      <div class="card">
-          <div class="list">
-              <label class="Item item-input item-floating-label">
-                  <span class="input-label">Trick Landed</span>
-                  <input type="text" placeholder="Trick landed" />
-              </label>
-              <label class="Item item-input item-floating-label">
-                  <span class="input-label">Location</span>
-                  <input type="text" placeholder="Location" />
-              </label>
-              <div class="padding">
-                  <button class="button button-block button-assertive">Add Trick</button>
-              </div>
-          </div>
-      </div>
-      <!-- list recorded tricks here-->
-      <table>
-          <thead>
-          <th>Deck Category Name</th>
-          <th>Deck Category Code</th>
-          </thead>
-          <tr ng-repeat="category in categories">
-              <td>{{category.Name}}</td>
-              <td>{{category.Code}}</td>
-          </tr>
-      </table>
-      <div class="card padding"ng-repeat="">
-          <div class="Item item-text-wrap" >
-              Trick: {{ category.Trick }} <br />
-              Location: {{ category.Location }}<br />
-          </div>
-      </div>
+      <form class="list" ng-submit="vm.addRecord()">
+        <label class="item item-input">
+            <input type="text" placeholder="Trick" ng-model="vm.newTrickText">
+        </label>
+        <label class="item item-input">
+            <input type="text" placeholder="Location" ng-model="vm.newPlaceText">
+        </label>
+        <label class="item item-input">
+            <textarea placeholder="Notes" ng-model="vm.newNotesText"></textarea>
+        </label>
+        <button class="button button-dark" type="submit">Submit</button>
+      </form>
+
+      <!-- this section displays data from firebase-->
+
+         <div class="list card" ng-repeat="record in vm.records">
+             <div class="item dark">
+                 <h2 class="trick-text">{{ record.trick }}</h2>
+                 <p class="location-text">{{ record.place }}</p>
+             </div>
+             <div class="item item-body">
+                 <p class="notes-text">{{ record.notes }}</p>
+             </div>
+         </div>
+
+
   </ion-content>
 </ion-view>
