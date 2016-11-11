@@ -9,7 +9,7 @@
 
             <div map-lazy-load="https://maps.google.com/maps/api/js"
                  map-lazy-load-params="{{vm.googleMapsUrl}}">
-                <ng-map default-style="true" center="35.1823, -83.3815" zoom="7">
+                <ng-map default-style="true" center="35.1823, -83.3815" zoom="14">
                     <marker id='{{shop.id}}' position="{{shop.position}}"
                             ng-repeat="shop in vm.shops"
                             on-click="vm.showDetail(shop)">
@@ -25,12 +25,14 @@
                     </info-window>
                 </ng-map>
 
-                <button ng-click="vm.showDetail(e, vm.shop)">
-                    show InfoWindow of the shop
-                </button>
-                <button ng-click="vm.hideDetail(e, vm.shop)">
-                    Hide InfoWindow of the shop
-                </button>
+            </div>
+
+                <h1 class="center title">Add Sk8 Spot</h1>
+            <div class="list">
+                <label class="item item-input">
+                    <input type="text" placeholder="Spot Name" />
+                </label>
+                <button class="button button-full button-assertive" type="submit">Submit</button>
             </div>
         </div>
     </ion-content>

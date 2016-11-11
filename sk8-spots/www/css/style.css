@@ -1,5 +1,9 @@
 ﻿/* general styling */
-
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
 /* MAP STYLING */
 ng-map {
   width: 100%;

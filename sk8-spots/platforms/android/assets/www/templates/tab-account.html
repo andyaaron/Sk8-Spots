@@ -1,14 +1,19 @@
 <ion-view view-title="Account">
   <ion-content>
-      <button ng-click="vm.signIn()">Sign in Anonymously</button>
-
-      <input type="email" placeholder="email" ng-model="email" />
-      <input type="password" placeholder="password" ng-model="password" />
-
-      <button ng-click="vm.createUser()">Create User</button>
-      <button type="submit" ng-click="vm.signIn()">Sign in</button>
-      <p ng-if="vm.message">Message: <strong>{{ vm.message }}</strong></p>
-      <p ng-if="vm.firebaseUser">Signed in user: <strong>{{ firebaseUser.uid }}</strong></p>
-      <p ng-if="vm.error">Error: <strong>{{ vm.error }}</strong></p>
-  </ion-content>
+      <form ng-submit="vm.createUser()">
+          <div class="list">
+              <label class="item item-input">
+                  <input type="email" placeholder="email" ng-model="vm.email" />
+              </label>
+              <label class="item item-input">
+                  <input type="password" placeholder="password" ng-model="vm.password" />
+              </label>
+              <button class="button button-assertive" type="submit" ng-click="vm.createUser()">Create User</button>
+              <button class="button button-assertive" type="submit" ng-click="vm.signIn()">Sign in</button>
+          </div>
+      </form>
+          <p ng-if="vm.message">Message: <strong>{{ vm.message }}</strong></p>
+          <p ng-if="vm.firebaseUser">Signed in user: <strong>{{ vm.firebaseUser.uid }}</strong></p>
+          <p ng-if="vm.error">Error: <strong>{{ vm.error }}</strong></p>
+</ion-content>
 </ion-view>
