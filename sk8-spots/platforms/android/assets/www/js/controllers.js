@@ -20,7 +20,7 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
 
 .controller('AccountCtrl', function ($scope, $firebaseAuth, Auth) {
     var vm = this;
-
+    //stuff here
     // Get the currently signed-in user
     Auth.$onAuthStateChanged(function (user) {
         if (user) {
