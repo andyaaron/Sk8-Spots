@@ -4,6 +4,25 @@
     margin-right: auto;
     display: block;
 }
+
+.alert-balanced {
+    background: rgba(76, 255, 0, 0.35);
+    width: 85%;
+    margin: 1em auto 0 auto;
+    padding: .5em 0;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.alert-assertive {
+    background: rgba(239, 71, 58, 0.25);
+    width: 85%;
+    margin: 1em auto 0 auto;
+    padding: .5em 0;
+    text-align: center;
+    border-radius: 6px;
+}
+
 /* MAP STYLING */
 ng-map {
   width: 100%;

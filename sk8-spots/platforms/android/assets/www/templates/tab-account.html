@@ -1,6 +1,5 @@
 <ion-view view-title="Account">
   <ion-content>
-      <form ng-submit="vm.createUser()">
           <div class="list">
               <label class="item item-input">
                   <input type="email" placeholder="email" ng-model="vm.email" />
@@ -11,9 +10,9 @@
               <button class="button button-assertive" type="submit" ng-click="vm.createUser()">Create User</button>
               <button class="button button-assertive" type="submit" ng-click="vm.signIn()">Sign in</button>
           </div>
-      </form>
-          <p ng-if="vm.message">Message: <strong>{{ vm.message }}</strong></p>
-          <p ng-if="vm.firebaseUser">Signed in user: <strong>{{ vm.firebaseUser.uid }}</strong></p>
-          <p ng-if="vm.error">Error: <strong>{{ vm.error }}</strong></p>
+
+          <p class="alert-balanced balanced" ng-if="vm.message">{{ vm.message }}</p>
+          <p class="alert-balanced balanced" ng-if="vm.firebaseUser">Signed in user: <strong>{{ vm.firebaseUser.email }}</strong></p>
+          <p class="alert-assertive assertive"ng-if="vm.error">Error: <strong>{{ vm.error }}</strong></p>
 </ion-content>
 </ion-view>
