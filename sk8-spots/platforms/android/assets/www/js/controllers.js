@@ -3,8 +3,14 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
 /* ===========
  * Sk8 Log tab
  * ===========*/
-.controller('DashCtrl', function ($scope, $firebaseArray, $firebaseAuth, Auth) {
+.controller('DashCtrl', function ($scope, $firebaseArray, Auth) {
     var vm = this;
+
+    // Get the currently signed-in user
+    Auth.$onAuthStateChanged(function (firebaseUser) {
+        vm.firebaseUser = firebaseUser;
+    });
+
     // reference variable for database
     var ref = firebase.database().ref().child("TrickRecords");
 
@@ -27,17 +33,12 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
 .controller('AccountCtrl', function ($scope, $firebaseAuth, Auth) {
     var vm = this;
 
-    /*
+    
     // Get the currently signed-in user
-    Auth.$onAuthStateChanged(function (user) {
-        if (user) {
-            // User is signed in
-        } else {
-            // No user is signed in
-            console.log("not signed in.");
-        }
+    Auth.$onAuthStateChanged(function (firebaseUser) {
+        vm.firebaseUser = firebaseUser;
     });
-    */
+    
     // Create user function
     vm.createUser = function () {
         vm.firebaseUser = null;
@@ -49,16 +50,10 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
         Auth.$createUserWithEmailAndPassword(vm.email, vm.password)
             .then(function (firebaseUser) {
                 vm.message = "User created with uid: " + firebaseUser.uid;
+                // Auth.currentUser.$sendEmailVerification();
             }).catch(function(error) {
                 vm.error = error;
             });
-    }
-
-    vm.sendEmailVerification = function () {
-        Auth.currentUser.sendEmailVerification().then(function () {
-            // Email verification sent
-            vm.sentEmail = 'Email Verification Sent!';
-        });
     }
 
     // Sign in user

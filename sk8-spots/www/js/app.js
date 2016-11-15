@@ -49,6 +49,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             controllerAs: 'vm',
             controller: 'DashCtrl'
         }
+    },
+    resolve: {
+        // controller will not be loaded until $waitForSignIn resolves
+        // Auth refers to our $firebaseAuth wrapper in the factory
+        "currentAuth": ["Auth", function (Auth) {
+            return Auth.$requireSignIn();
+        }]
     }
     })
 

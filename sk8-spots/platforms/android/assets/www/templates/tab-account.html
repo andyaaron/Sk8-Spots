@@ -1,6 +1,6 @@
 <ion-view view-title="Account">
   <ion-content>
-          <div class="list">
+          <div class="list" ng-hide="vm.firebaseUser">
               <label class="item item-input">
                   <input type="email" placeholder="email" ng-model="vm.email" />
               </label>
@@ -12,7 +12,11 @@
           </div>
 
           <p class="alert-balanced balanced" ng-if="vm.message">{{ vm.message }}</p>
-          <p class="alert-balanced balanced" ng-if="vm.firebaseUser">Signed in user: <strong>{{ vm.firebaseUser.email }}</strong></p>
+          <p class="alert-balanced balanced" ng-if="vm.sentEmail"> {{ vm.sentEmail }}</p>
+          <div ng-if="vm.firebaseUser">
+              <p class="alert-balanced balanced" ng-if="vm.firebaseUser">Signed in user: {{ vm.firebaseUser.email }}</p>
+              <button ng-click="Auth.$signOut()">Sign Out</button>
+          </div>
           <p class="alert-assertive assertive"ng-if="vm.error">Error: <strong>{{ vm.error }}</strong></p>
 </ion-content>
 </ion-view>

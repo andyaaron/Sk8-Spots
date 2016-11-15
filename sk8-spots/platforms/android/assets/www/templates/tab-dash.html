@@ -1,6 +1,10 @@
 <ion-view view-title="Sk8 Log">
-    <div id="firebaseui-auth-container"></div>
   <ion-content class="padding">
+      <!-- show logged in user e-mail -->
+      <div ng-if="vm.firebaseUser">
+          <p class="alert-balanced balanced">Signed in user: {{ vm.firebaseUser.email }}</p>
+      </div>
+
       <!-- Form to add new entries to firebase db -->
       <form class="list" ng-submit="vm.addRecord()">
         <label class="item item-input">
