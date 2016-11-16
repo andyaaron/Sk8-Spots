@@ -5,6 +5,7 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
  * ===========*/
 .controller('DashCtrl', function ($scope, $firebaseArray, Auth) {
     var vm = this;
+    vm.auth = Auth;
 
     // Get the currently signed-in user
     Auth.$onAuthStateChanged(function (firebaseUser) {
@@ -39,19 +40,32 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
         vm.firebaseUser = firebaseUser;
     });
     
+    // Show and hide login/signup forms
+    vm.isHiddenLogin = false;
+    vm.isHiddenSignup = false;
+
+    vm.showLogin = function () {
+        vm.isHiddenLogin = true;
+        vm.isHiddenSignup = false;
+    }
+
+    vm.showSignup = function () {
+        vm.isHiddenSignup = true;
+        vm.isHiddenLogin = false;
+    }
+
     // Create user function
     vm.createUser = function () {
         vm.firebaseUser = null;
         vm.message = null;
         vm.error = null;
 
-
         // Create a new user
         Auth.$createUserWithEmailAndPassword(vm.email, vm.password)
             .then(function (firebaseUser) {
                 vm.message = "User created with uid: " + firebaseUser.uid;
                 // Auth.currentUser.$sendEmailVerification();
-            }).catch(function(error) {
+            }).catch(function (error) {
                 vm.error = error;
             });
     }
@@ -68,6 +82,13 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
             }).catch(function (error) {
                 vm.error = error;
             });
+    }
+
+    vm.signOut = function () {
+        console.log(Auth);
+        Auth.$signOut().then(function () {
+            console.log("Logging out!");
+        });
     }
     /* Delete user function
     vm.deleteUser = function (){ 

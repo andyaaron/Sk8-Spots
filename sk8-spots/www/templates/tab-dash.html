@@ -5,8 +5,12 @@
           <p class="alert-balanced balanced">Signed in user: {{ vm.firebaseUser.email }}</p>
       </div>
 
+      <div ng-if="!vm.firebaseUser">
+          <p class="alert-assertive assertive padding">Please create an account and sign in to use the Sk8 Log.</p>
+      </div>
+
       <!-- Form to add new entries to firebase db -->
-      <form class="list" ng-submit="vm.addRecord()">
+      <form class="list" ng-if="vm.firebaseUser" ng-submit="vm.addRecord()">
         <label class="item item-input">
             <input type="text" placeholder="Trick" ng-model="vm.newTrickText">
         </label>
@@ -20,7 +24,7 @@
       </form>
 
       <!-- this section displays data from firebase-->
-        <div class="list card" ng-repeat="record in vm.records">
+        <div class="list card" ng-if="vm.firebaseUser" ng-repeat="record in vm.records">
             <div class="item dark">
                 <h2 class="trick-text">{{ record.trick }}</h2>
                 <p class="location-text">{{ record.place }}</p>

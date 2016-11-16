@@ -74,3 +74,13 @@ ng-map {
 .notes-text {
 
 }
+
+/* Login page */
+
+.hide-login {
+    display: none;
+}
+
+.hide-signup {
+    display: none;
+}
