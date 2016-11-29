@@ -108,20 +108,33 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
 /* =======
  * Map Tab
  * =======*/
-.controller('MapCtrl', function ($scope, $firebaseArray, $firebaseAuth, Auth, NgMap) {
+.controller('MapCtrl', function ($scope, $firebaseArray, Auth, Sk8Spots, NgMap) {
     // Declare stuff
     var vm = this;
-    var ref = firebase.database().ref().child("Sk8Spots");
+    var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+    var options = {
+        enableHighAccuracy: true,
+        maximumAge: 3600000
+    };
 
-    // Create sync'd array
-    vm.spots = $firebaseArray(ref);
+    // Create sync'd array from database service
+    vm.spots = Sk8Spots;
+    console.log(Sk8Spots);
 
-    /* Add new entry to the database by
-     * grabbing user's current lat & lng */
-    vm.addSpot = function () {
-        vm.spots.$add({
-            // Stuff here...
-        });
+    function onSuccess(position) {
+        vm.latLong = position.coords.latitude + ", " + position.coords.longitude;
+        console.log(vm.latLong);
+    };
+
+    function onError(error) {
+        vm.error = 'code: ' + error.code + '\n' + 'message: ' + error.message + '\n';
+    };
+
+    vm.getPosition = function () {
+            vm.spots.$add({
+                Coordinates: vm.latLong,
+                Name: vm.name
+            });
     };
 
     // Get map
@@ -136,50 +149,27 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
     };
 
     // Manually inserted spots
-    vm.shops = [
+    /*vm.shops = [
       { id: '1', name: 'Depot Ledge', position: [35.1772876, -83.3735501] },
       { id: '2', name: 'The Walk', position: [35.181465, -83.384155] },
       { id: '3', name: 'Cherokee Skatepark', position: [35.491382, -83.311923] },
       { id: '4', name: 'Waynesville Skatepark', position: [35.505803, -82.978347] }
     ];
-    vm.shop = vm.shops[0];
-
+    */
+    vm.spot = vm.spots[0];
 
     // Marker holder
     vm.markers = [];
 
     // Show details of spot
-    vm.showDetail = function (e, shop) {
-        vm.shop = shop;
-        vm.map.showInfoWindow('foo-iw', shop.id);
+    vm.showDetail = function (e, spot) {
+        vm.spot = spot;
+        vm.map.showInfoWindow('foo-iw', spot.id);
     };
 
     // Hide details
     vm.hideDetail = function () {
         vm.map.hideInfoWindow('foo-iw');
-    };
-
-    // Add location. Grab users GPS coordinates and auto insert.
-    vm.addMarker = function (lat, lng, title) {
-        var latLng = new google.maps.LatLng(lat, lng);
-
-        var marker = new google.maps.Marker({
-            map: vm.map,
-            position: latLng,
-            title: title
-        });
-        marker.content = '<div class="infoWindowContent">'
-                        + marker.title + '</div>';
-
-        google.maps.event.addListener(marker, 'click', function() {
-            infoWindow.setContent('<h2>' + marker.title + '</h2>'
-                + marker.content);
-            infoWindow.open($scope.map, marker);
-        });
-
-        vm.markers.push(marker);
-
-        vm.map.setCenter(latLng);
     };
 
     vm.openInfoWindow = function(e, selectedMarker) {

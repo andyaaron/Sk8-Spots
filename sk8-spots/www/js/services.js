@@ -9,13 +9,12 @@ angular.module('starter.services', [])
     }
 })
 
-// Do i even need this? i might.
-.factory('sk8Categories', function (rootRef) {
-    return {
-        getCategoriesRef: function () {
-            return rootRef.child('categories');
-        }
-    }
+// factory for coordinate database
+.factory('Sk8Spots', function ($firebaseArray) {
+    // Create reference to database where we will store our data
+    var ref = firebase.database().ref().child("Sk8Spots");
+
+    return $firebaseArray(ref);
 })
 
 // factory for user authentication through firebase

@@ -1,10 +1,12 @@
 <ion-view view-title="Account">
-  <ion-content>
+    <ion-content>
+      <!-- Login and signup buttons -->
       <div class="center" ng-hide="vm.firebaseUser">
         <button class="button button-large button-assertive" ng-click="vm.showLogin()">Log in</button>
         <button class="button button-large button-assertive" ng-click="vm.showSignup()">Sign up</button>
       </div>
-          <div class="list" ng-show="vm.isHiddenSignup || !vm.firebaseUser">
+          <!-- Signup form -->
+          <div class="list" ng-hide="!vm.isHiddenSignup || vm.firebaseUser">
               <label class="item item-input">
                   <input type="email" placeholder="E-mail" ng-model="vm.email" required/>
               </label>
@@ -16,8 +18,9 @@
               </label>
               <button class="button button-assertive" type="submit" ng-click="vm.createUser()">Create User</button>
           </div>
-
-          <div class="list" ng-show="vm.isHiddenLogin || !vm.firebaseUser">
+          
+          <!-- Login form-->
+          <div class="list" ng-hide="!vm.isHiddenLogin || vm.firebaseUser">
               <label class="item item-input">
                   <input type="email" placeholder="E-mail" ng-model="vm.email" required />
               </label>
@@ -26,13 +29,17 @@
               </label>
               <button class="button button-assertive" type="submit" ng-click="vm.signIn()">Sign in</button>
           </div>
-
+          
+          <!--message response -->
           <p class="alert-balanced balanced" ng-if="vm.message">{{ vm.message }}</p>
+          <!-- email sent response-->
           <p class="alert-balanced balanced" ng-if="vm.sentEmail"> {{ vm.sentEmail }}</p>
+          <!-- If signed in, show who user is signed in as, with sign out option-->
           <div ng-if="vm.firebaseUser">
               <p class="alert-balanced balanced" ng-if="vm.firebaseUser">Signed in user: {{ vm.firebaseUser.email }}</p>
               <button class="center button button-assertive" ng-click="vm.signOut()">Sign Out</button>
           </div>
+          <!-- if error -->
           <p class="alert-assertive assertive" ng-if="vm.error">Error: <strong>{{ vm.error }}</strong></p>
-</ion-content>
+    </ion-content>
 </ion-view>

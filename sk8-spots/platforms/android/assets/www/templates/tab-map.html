@@ -7,19 +7,21 @@
         </div>
         <div ng-if="!vm.pauseLoading">
 
+            <!-- map -->
             <div map-lazy-load="https://maps.google.com/maps/api/js"
                  map-lazy-load-params="{{vm.googleMapsUrl}}">
-                <ng-map default-style="true" center="35.1823, -83.3815" zoom="14">
-                    <marker id='{{shop.id}}' position="{{shop.position}}"
-                            ng-repeat="shop in vm.shops"
-                            on-click="vm.showDetail(shop)">
+                <ng-map default-style="true" center="{{ vm.latLong }}" zoom="14">
+                    <!-- markers-->
+                    <marker ng-repeat="spot in vm.spots" 
+                            id='{{spot.Name}}' position="{{spot.Coordinates}}"
+                            on-click="vm.showDetail(spot)">
                     </marker>
 
+                    <!-- info windows for markers -->
                     <info-window id="foo-iw">
                         <div ng-non-bindable="">
-                            Name: {{vm.shop.name}}<br />
-                            Address: {{vm.shop.address}}<br />
-                            Position: {{vm.shop.position}}<br />
+                            Name: {{ vm.spot.Name }}<br />
+                            Coordinates: {{ vm.spot.Coordinates }} <br />
                             <a href="#" ng-click="vm.clicked()">Click Here</a>
                         </div>
                     </info-window>
@@ -27,13 +29,19 @@
 
             </div>
 
-                <h2 class="center title">Add Current Location as a Sk8 Spot</h2>
+            <!-- User Entry -->
+            <h2 class="center title">Add Current Location as a Sk8 Spot</h2>
             <div class="list">
                 <label class="item item-input">
-                    <input type="text" placeholder="Spot Name" />
+                    <input type="text" placeholder="Spot Name" ng-model="vm.name" required/>
                 </label>
-                <button class="button button-full button-assertive" type="submit" ng-click="vm.addMarker()">Submit</button>
+                <button class="button button-full button-assertive" type="submit" ng-click="vm.getPosition()">Submit</button>
             </div>
+            <p class="alert-balanced balanced" ng-if="vm.lat && vm.lng">
+                Latitude: {{ vm.lat }} <br />
+                Longitude: {{ vm.lng }} <br />
+            </p>
+            <p class="alert-assertive assertive" ng-if="vm.error">Error: <strong>{{ vm.error }}</strong></p>
         </div>
     </ion-content>
 
