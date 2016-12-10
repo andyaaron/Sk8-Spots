@@ -12,8 +12,9 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
         vm.firebaseUser = firebaseUser;
     });
 
+
     // reference variable for database
-    var ref = firebase.database().ref().child("TrickRecords");
+    var ref = firebase.database().ref().child("Users/");
 
     //create synchronized array
     vm.records = $firebaseArray(ref);
@@ -26,15 +27,17 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
             notes: vm.newNotesText
         });
     };
+
+    function createUserNode(firebaseUser, user) {
+    };
 })
 
 /* ============
  * Account tab
  * ============*/
-.controller('AccountCtrl', function ($scope, $firebaseAuth, Auth) {
+.controller('AccountCtrl', function ($scope, $firebaseAuth, $firebaseArray, $firebaseObject, Users, Auth) {
     var vm = this;
-
-    
+        
     // Get the currently signed-in user
     Auth.$onAuthStateChanged(function (firebaseUser) {
         vm.firebaseUser = firebaseUser;
@@ -53,7 +56,6 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
         vm.isHiddenSignup = true;
         vm.isHiddenLogin = false;
     }
-
     // Create user function
     vm.createUser = function () {
         vm.firebaseUser = null;
@@ -64,7 +66,9 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
         Auth.$createUserWithEmailAndPassword(vm.email, vm.password)
             .then(function (firebaseUser) {
                 vm.message = "User created with uid: " + firebaseUser.uid;
-                // Auth.currentUser.$sendEmailVerification();
+                firebaseUser.sendEmailVerification();
+                    //Email sent;
+                    console.log("email sent");
             }).catch(function (error) {
                 vm.error = error;
             });

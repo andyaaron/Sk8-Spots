@@ -1,0 +1,11 @@
+﻿{
+ "android": {
+     "release": {
+         "keystore":"c:\\sk8-spots-key.keystore",
+         "storePassword":"Ckyfan343!",
+         "alias":"aaronA",
+         "password":"Ckyfan343!",
+         "keystoreType":""
+       }
+   }
+}
