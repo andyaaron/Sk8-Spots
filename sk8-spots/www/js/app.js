@@ -47,7 +47,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         'tab-dash': {
             templateUrl: 'templates/tab-dash.html',
             controllerAs: 'vm',
-            controller: 'DashCtrl'
+            controller: 'DashCtrl',
+            resolve: {
+                currentAuth: ['Auth', function (Auth) {
+                return Auth.$requireSignIn()
+                }]
+            }
         }
     }
     })
@@ -71,7 +76,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       'tab-account': {
           templateUrl: 'templates/tab-account.html',
           controllerAs: 'vm',
-          controller: 'AccountCtrl'
+          controller: 'AccountCtrl',
+
       }
     }
   });

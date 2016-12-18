@@ -3,7 +3,7 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
 /* ===========
  * Sk8 Log tab
  * ===========*/
-.controller('DashCtrl', function ($scope, $firebaseArray, Auth) {
+.controller('DashCtrl', function ($scope, $firebaseArray, Auth, TrickRecords) {
     var vm = this;
     vm.auth = Auth;
 
@@ -14,10 +14,9 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
 
 
     // reference variable for database
-    var ref = firebase.database().ref().child("Users/");
 
     //create synchronized array
-    vm.records = $firebaseArray(ref);
+    vm.records = TrickRecords;
 
     //add user entry to db
     vm.addRecord = function () {
@@ -28,14 +27,12 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
         });
     };
 
-    function createUserNode(firebaseUser, user) {
-    };
 })
 
 /* ============
  * Account tab
  * ============*/
-.controller('AccountCtrl', function ($scope, $firebaseAuth, $firebaseArray, $firebaseObject, Users, Auth) {
+.controller('AccountCtrl', function ($scope, $firebaseAuth, $firebaseArray, $firebaseObject, Auth) {
     var vm = this;
         
     // Get the currently signed-in user
@@ -67,8 +64,8 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
             .then(function (firebaseUser) {
                 vm.message = "User created with uid: " + firebaseUser.uid;
                 firebaseUser.sendEmailVerification();
-                    //Email sent;
-                    console.log("email sent");
+                //Email sent;
+                console.log("email sent");
             }).catch(function (error) {
                 vm.error = error;
             });
@@ -94,19 +91,6 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
             console.log("Logging out!");
         });
     }
-    /* Delete user function
-    vm.deleteUser = function (){ 
-        vm.message = null;
-        vm.error = null;
-
-        // Delete the currently signed in user
-        Auth.$deleteUser().then(function () {
-            vm.message = "User deleted";
-        }).catch(function(error) {
-            vm.error = error;
-        });
-    }
-    */
 })
 
 /* =======
