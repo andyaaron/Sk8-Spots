@@ -5,6 +5,7 @@
         <button class="button button-large button-assertive" ng-click="vm.showLogin()">Log in</button>
         <button class="button button-large button-assertive" ng-click="vm.showSignup()">Sign up</button>
       </div>
+        <button class="button buttonn-medium button-balanced" ng-click="vm.test()">Do it!</button>
           <!-- Signup form -->
           <div class="list" ng-hide="!vm.isHiddenSignup || vm.firebaseUser">
               <label class="item item-input">
@@ -36,7 +37,11 @@
           <p class="alert-balanced balanced" ng-if="vm.sentEmail"> {{ vm.sentEmail }}</p>
           <!-- If signed in, show who user is signed in as, with sign out option-->
           <div ng-if="vm.firebaseUser">
-              <p class="alert-balanced balanced" ng-if="vm.firebaseUser">Signed in user: {{ vm.firebaseUser.email }}</p>
+              <p class="alert-balanced balanced" ng-if="vm.firebaseUser">
+                  Signed in user: {{ vm.firebaseUser.email }}
+                  <br/> 
+                  UID: {{ vm.firebaseUser.uid }}    
+              </p>
               <button class="center button button-assertive" ng-click="vm.signOut()">Sign Out</button>
           </div>
           <!-- if error -->

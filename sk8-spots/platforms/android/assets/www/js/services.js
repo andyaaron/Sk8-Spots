@@ -23,10 +23,9 @@ angular.module('starter.services', [])
 })
 
 // factory for user database
-.factory('Users', function ($firebaseArray, firebaseUser) {
-    var usersRef = firebase.database().ref().child("Users");
-
-    return $firebaseArray(usersRef);
+.factory('Users', function ($firebaseArray) {
+    var ref = firebase.database().ref().child("Users");
+        return $firebaseArray(ref);
 })
 
 // factory for user authentication through firebase

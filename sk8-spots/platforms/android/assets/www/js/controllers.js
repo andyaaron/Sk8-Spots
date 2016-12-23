@@ -32,14 +32,18 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
 /* ============
  * Account tab
  * ============*/
-.controller('AccountCtrl', function ($scope, $firebaseAuth, $firebaseArray, $firebaseObject, Auth) {
+.controller('AccountCtrl', function ($scope, $firebaseAuth, $firebaseArray, $firebaseObject, Auth, Users) {
     var vm = this;
-        
+
     // Get the currently signed-in user
     Auth.$onAuthStateChanged(function (firebaseUser) {
         vm.firebaseUser = firebaseUser;
+        vm.userId = firebaseUser.uid;
     });
     
+    //create synchronized array
+    vm.users = Users;
+
     // Show and hide login/signup forms
     vm.isHiddenLogin = false;
     vm.isHiddenSignup = false;
@@ -53,15 +57,27 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
         vm.isHiddenSignup = true;
         vm.isHiddenLogin = false;
     }
+
+    vm.test = function () {
+      
+    }
+
     // Create user function
     vm.createUser = function () {
         vm.firebaseUser = null;
         vm.message = null;
         vm.error = null;
+    
 
         // Create a new user
         Auth.$createUserWithEmailAndPassword(vm.email, vm.password)
             .then(function (firebaseUser) {
+                //reference to user db, create a new object by user Id
+                firebase.database().ref().child("Users/" + firebaseUser.uid).set({
+                    email: firebaseUser.email,
+                    lastSignInTimestamp: Date.now()
+                });
+                //message log
                 vm.message = "User created with uid: " + firebaseUser.uid;
                 firebaseUser.sendEmailVerification();
                 //Email sent;
