@@ -11,14 +11,17 @@
 
       <!-- Form to add new entries to firebase db -->
       <form class="list" ng-if="vm.firebaseUser" ng-submit="vm.addRecord()">
-        <label class="item item-input">
-            <input type="text" placeholder="Trick" ng-model="vm.newTrickText">
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">Trick</span>
+            <input type="text" ng-model="vm.newTrickText">
         </label>
-        <label class="item item-input">
-            <input type="text" placeholder="Location" ng-model="vm.newPlaceText">
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">Location</span>
+            <input type="text" ng-model="vm.newPlaceText">
         </label>
-        <label class="item item-input">
-            <textarea placeholder="Notes" ng-model="vm.newNotesText"></textarea>
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">Notes</span>
+            <textarea ng-model="vm.newNotesText"></textarea>
         </label>
         <button class="button button-assertive" type="submit">Submit</button>
       </form>

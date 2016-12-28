@@ -38,10 +38,6 @@ ng-map {
     font-weight: bold;
 }
 
-.input-label {
-    font-weight: bold;
-    color: #a41f1f;
-}
 /* INFO WINDOW */
 .ng-map-info-window {
     background-color: #222222;

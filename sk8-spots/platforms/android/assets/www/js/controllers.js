@@ -3,29 +3,32 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
 /* ===========
  * Sk8 Log tab
  * ===========*/
-.controller('DashCtrl', function ($scope, $firebaseArray, Auth, TrickRecords) {
+.controller('DashCtrl', function ($scope, $firebaseArray, Auth) {
     var vm = this;
     vm.auth = Auth;
-
     // Get the currently signed-in user
     Auth.$onAuthStateChanged(function (firebaseUser) {
         vm.firebaseUser = firebaseUser;
-    });
-
-
-    // reference variable for database
-
+        console.log(firebaseUser.email);
+        console.log(firebaseUser.uid);
     //create synchronized array
-    vm.records = TrickRecords;
+        vm.records = $firebaseArray(firebase.database().ref().child("Users/" + firebaseUser.uid + "/TrickLog"));
 
     //add user entry to db
-    vm.addRecord = function () {
+    vm.addRecord = function (firebaseUser) {
         vm.records.$add({
             trick: vm.newTrickText,
             place: vm.newPlaceText,
             notes: vm.newNotesText
         });
+        console.log('New record added!');
     };
+    });
+
+
+
+    // reference variable for database
+
 
 })
 
@@ -38,7 +41,6 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
     // Get the currently signed-in user
     Auth.$onAuthStateChanged(function (firebaseUser) {
         vm.firebaseUser = firebaseUser;
-        vm.userId = firebaseUser.uid;
     });
     
     //create synchronized array
@@ -123,11 +125,10 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
 
     // Create sync'd array from database service
     vm.spots = Sk8Spots;
-    console.log(Sk8Spots);
 
     function onSuccess(position) {
         vm.latLong = position.coords.latitude + ", " + position.coords.longitude;
-        console.log(vm.latLong);
+        console.log('current location: ' + vm.latLong);
     };
 
     function onError(error) {
@@ -152,14 +153,6 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
         alert('Clicked a link inside infoWindow');
     };
 
-    // Manually inserted spots
-    /*vm.shops = [
-      { id: '1', name: 'Depot Ledge', position: [35.1772876, -83.3735501] },
-      { id: '2', name: 'The Walk', position: [35.181465, -83.384155] },
-      { id: '3', name: 'Cherokee Skatepark', position: [35.491382, -83.311923] },
-      { id: '4', name: 'Waynesville Skatepark', position: [35.505803, -82.978347] }
-    ];
-    */
     vm.spot = vm.spots[0];
 
     // Marker holder
