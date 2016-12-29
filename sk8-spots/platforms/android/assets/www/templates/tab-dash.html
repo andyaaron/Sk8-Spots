@@ -5,10 +5,6 @@
           <p class="alert-balanced balanced">Signed in user: {{ vm.firebaseUser.email }}</p>
       </div>
 
-      <div ng-if="!vm.firebaseUser">
-          <p class="alert-assertive assertive padding">Please create an account and sign in to use the Sk8 Log.</p>
-      </div>
-
       <!-- Form to add new entries to firebase db -->
       <form class="list" ng-if="vm.firebaseUser" ng-submit="vm.addRecord()">
         <label class="item item-input item-stacked-label">
@@ -36,7 +32,5 @@
                 <p class="notes-text">{{ record.notes }}</p>
             </div>
         </div>
-
-
   </ion-content>
 </ion-view>

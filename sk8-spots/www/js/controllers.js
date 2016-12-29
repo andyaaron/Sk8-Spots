@@ -11,25 +11,20 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
         vm.firebaseUser = firebaseUser;
         console.log(firebaseUser.email);
         console.log(firebaseUser.uid);
-    //create synchronized array
+
+        //create synchronized array
         vm.records = $firebaseArray(firebase.database().ref().child("Users/" + firebaseUser.uid + "/TrickLog"));
 
-    //add user entry to db
-    vm.addRecord = function (firebaseUser) {
-        vm.records.$add({
-            trick: vm.newTrickText,
-            place: vm.newPlaceText,
-            notes: vm.newNotesText
-        });
-        console.log('New record added!');
-    };
+        //add user entry to db
+        vm.addRecord = function (firebaseUser) {
+            vm.records.$add({
+                trick: vm.newTrickText,
+                place: vm.newPlaceText,
+                notes: vm.newNotesText
+            });
+            console.log('New record added!');
+        };
     });
-
-
-
-    // reference variable for database
-
-
 })
 
 /* ============
