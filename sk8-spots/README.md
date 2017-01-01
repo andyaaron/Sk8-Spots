@@ -1,6 +1,6 @@
 # Sk8 Spots
 
-An application using Apache Cordova, Ionic Framework, and Typescript. Currently supporting iOS, Android and Windows 10 apparently?.
+An application using Apache Cordova, Ionic Framework, and Typescript. Currently supporting iOS, Android and Windows 10.
 Mainly being developed with android in mind for the time being. The application features 3 different tabs, a record keeper, a map
 that displays points of interest, and allows you to add your current location as a point of interest, and an account tab that handles
 logging in, signing in, and signing out.
