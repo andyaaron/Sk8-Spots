@@ -55,8 +55,20 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
         vm.isHiddenLogin = false;
     }
 
-    vm.test = function () {
-      
+    vm.forgotPass = function () {
+
+    }
+
+    // Send password reset email
+    vm.submitEmail = function () {
+        Auth.$sendPasswordResetEmail(vm.emailReset)
+            .then(function () {
+                // Email sent.
+                console.log("Password reset email sent.");
+            }).catch(function(error) {
+                // Oh no!
+                console.error("Error: ", error);
+            });
     }
 
     // Create user function

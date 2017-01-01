@@ -1,10 +1,11 @@
 <ion-view view-title="Account">
     <ion-content>
-      <!-- Login and signup buttons -->
+      <!-- Login and signup -->
         <div class="card">
             <div class="item item-text-wrap">
                 <div ng-hide="vm.firebaseUser">
                 Please sign in or create an account to use the Sk8 Log.
+                    <!-- Login and signup buttons -->
                     <div class="button-bar bar-balanced">
                         <button class="button" ng-click="vm.showLogin()">Log in</button>
                         <button class="button" ng-click="vm.showSignup()">Sign up</button>
@@ -22,10 +23,10 @@
                     <label class="item item-input">
                         <input name="confirmPassword" type="password" placeholder="Confirm Password" ng-model="vm.rePassword" required />
                     </label>
-                    <button class="button button-balanced" type="submit" ng-click="vm.createUser()">Create User</button>
+                    <button class="button button-balanced center" type="submit" ng-click="vm.createUser()">Create User</button>
                 </div>
 
-                <!-- Login form-->
+                <!-- Login form -->
                 <div class="list" ng-hide="!vm.isHiddenLogin || vm.firebaseUser">
                     <label class="item item-input">
                         <input type="email" placeholder="E-mail" ng-model="vm.email" required />
@@ -33,9 +34,22 @@
                     <label class="item item-input">
                         <input name="newPassword" type="password" placeholder="Password" ng-model="vm.password" required />
                     </label>
-                    <button class="button button-balanced" type="submit" ng-click="vm.signIn()">Sign in</button>
+                    <button class="button button-balanced center" type="submit" ng-click="vm.signIn()">Sign in</button>
+                    
                 </div>
+                <a class="center" href="" ng-click="vm.forgotPass()">Forgot password?</a>
             </div>
+        </div>
+
+        <!-- password reset -->
+        <div class="card">
+            <div class="item item-text-wrap">
+                Enter the e-mail address you use to login.
+            </div>
+            <label class="item item-input">
+                <input type="email" placeholder="E-mail" ng-model="vm.emailReset" />
+            </label>
+            <button class="button button-small button-balanced" type="submit" ng-click="vm.submitEmail()">Submit</button>
         </div>
           
           <!--message response -->
