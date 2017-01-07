@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "sk8-spots", "sk8-spots\sk8-spots.jsproj", "{F8F63820-46EB-47D3-A9C9-D63A41A2AF6F}"
+Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "Ollie", "sk8-spots\Ollie.jsproj", "{F8F63820-46EB-47D3-A9C9-D63A41A2AF6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
