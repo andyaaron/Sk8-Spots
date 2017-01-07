@@ -30,7 +30,7 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
 /* ============
  * Account tab
  * ============*/
-.controller('AccountCtrl', function ($scope, $firebaseAuth, $firebaseArray, $firebaseObject, Auth, Users) {
+.controller('AccountCtrl', function ($scope, $ionicPopup, $timeout, $firebaseAuth, $firebaseArray, $firebaseObject, Auth, Users) {
     var vm = this;
 
     // Get the currently signed-in user
@@ -44,6 +44,7 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
     // Show and hide login/signup forms
     vm.isHiddenLogin = false;
     vm.isHiddenSignup = false;
+    vm.isHiddenPassReset = false;
 
     vm.showLogin = function () {
         vm.isHiddenLogin = true;
@@ -56,15 +57,23 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
     }
 
     vm.forgotPass = function () {
-
+        console.log("doot");
+        vm.isHiddenPassReset = true;
+        vm.isHiddenLogin = false;
+        console.log(vm.isHiddenPassReset);
     }
 
     // Send password reset email
     vm.submitEmail = function () {
+
         Auth.$sendPasswordResetEmail(vm.emailReset)
             .then(function () {
                 // Email sent.
                 console.log("Password reset email sent.");
+                $ionicPopup.alert({
+                    title: 'Confirmation',
+                    template: 'Password Reset email sent to ' + vm.emailReset
+            });
             }).catch(function(error) {
                 // Oh no!
                 console.error("Error: ", error);
@@ -87,7 +96,10 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
                     lastSignInTimestamp: Date.now()
                 });
                 //message log
-                vm.message = "User created with uid: " + firebaseUser.uid;
+                $ionicPopup.alert({
+                    title: 'Confirmation',
+                    template: "User created with uid: " + firebaseUser.uid + ". Please verify e-mail"
+                });
                 firebaseUser.sendEmailVerification();
                 //Email sent;
                 console.log("email sent");
@@ -181,4 +193,27 @@ angular.module('starter.controllers', ['ionic', 'ngMap', 'firebase'])
         google.maps.event.trigger(selectedMarker, 'click');
     }
 
+})
+
+/* ================================
+ * Password Verification Directive
+ * ===============================*/
+.directive('nxEqual', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, elem, attrs, model) {
+            if (!attrs.nxEqual) {
+                console.error('nxEqual expects a model as an argument.');
+                return;
+            }
+            scope.$watch(attrs.nxEqual, function (value) {
+                model.$setValidity('nxEqual', value === model.$viewValue);
+            });
+            model.$parsers.push(function (value) {
+                var isValid = value === scope.$eval(attrs.nxEqual);
+                model.$setValidity('nxEqual', isValid);
+                return isValid ? value : undefined;
+            });
+        }
+    };
 });

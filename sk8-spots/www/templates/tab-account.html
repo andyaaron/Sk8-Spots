@@ -1,7 +1,7 @@
 <ion-view view-title="Account">
     <ion-content>
       <!-- Login and signup -->
-        <div class="card">
+        <div class="card" ng-hide="vm.firebaseUser">
             <div class="item item-text-wrap">
                 <div ng-hide="vm.firebaseUser">
                 Please sign in or create an account to use the Sk8 Log.
@@ -21,7 +21,8 @@
                         <input name="newPassword" type="password" placeholder="Password" ng-model="vm.password" required />
                     </label>
                     <label class="item item-input">
-                        <input name="confirmPassword" type="password" placeholder="Confirm Password" ng-model="vm.rePassword" required />
+                        <input name="confirmPassword" type="password" placeholder="Confirm Password" ng-model="vm.rePassword" nx-equal="vm.password" required />
+                        <span ng-show="form.verify.$error.nxEqual">Passwords must match!</span>
                     </label>
                     <button class="button button-balanced center" type="submit" ng-click="vm.createUser()">Create User</button>
                 </div>
@@ -37,23 +38,23 @@
                     <button class="button button-balanced center" type="submit" ng-click="vm.signIn()">Sign in</button>
                     
                 </div>
-                <a class="center" href="" ng-click="vm.forgotPass()">Forgot password?</a>
+                <button ng-hide="vm.firebaseUser" class="button button-balanced center" type="submit" ng-click="vm.forgotPass()">Forgot password?</button>
             </div>
         </div>
 
         <!-- password reset -->
-        <div class="card">
+        <div class="card" ng-hide="!vm.isHiddenPassReset || vm.firebaseUser">
             <div class="item item-text-wrap">
                 Enter the e-mail address you use to login.
             </div>
             <label class="item item-input">
                 <input type="email" placeholder="E-mail" ng-model="vm.emailReset" />
             </label>
-            <button class="button button-small button-balanced" type="submit" ng-click="vm.submitEmail()">Submit</button>
+            <button class="button button-balanced" type="submit" ng-click="vm.submitEmail()">Submit</button>
         </div>
           
           <!--message response -->
-          <p class="alert-balanced balanced" ng-if="vm.message">{{ vm.message }}</p>
+          <p id="success-msg" class="alert-balanced balanced" ng-if="vm.message">{{ vm.message }}</p>
           <!-- email sent response-->
           <p class="alert-balanced balanced" ng-if="vm.sentEmail"> {{ vm.sentEmail }}</p>
           <!-- If signed in, show who user is signed in as, with sign out option-->
